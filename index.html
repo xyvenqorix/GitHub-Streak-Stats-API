@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es" class="dark h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub Streak Stats Generator</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        github: {
+                            bg: '#0d1117',
+                            card: '#161b22',
+                            border: '#30363d',
+                            accent: '#238636',
+                            text: '#c9d1d9',
+                            muted: '#8b949e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- JSColor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.5.2/jscolor.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="includes/style.css">
+</head>
+
+<body class="h-full bg-github-bg text-github-text flex flex-col justify-between selection:bg-emerald-500/30 selection:text-emerald-300">
+
+<header class="flex-none border-b border-github-border/80 glass-panel sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+
+        <div class="flex items-center space-x-3">
+            <div class="p-2 bg-gradient-to-tr from-emerald-500 to-teal-400 text-github-bg font-extrabold rounded-xl shadow-lg shadow-emerald-500/10 flex items-center justify-center">
+                <i class="fa-solid fa-fire text-lg"></i>
+            </div>
+
+            <div>
+                <h1 class="font-bold text-sm sm:text-base text-white leading-tight flex items-center gap-2">
+                    Streak Stats Generator
+
+                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        v3.0
+                    </span>
+                </h1>
+
+                <p class="text-[11px] text-github-muted hidden sm:block">
+                    Crea tu tarjeta de racha para GitHub en segundos
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2.5">
+
+            <a href="https://instagram.com"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="instagram-btn text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition-all shadow-md shadow-pink-500/10 flex items-center gap-2">
+
+                <i class="fa-brands fa-instagram text-sm"></i>
+                <span>Sígueme en Instagram</span>
+            </a>
+
+            <a href="https://github.com"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="hidden md:flex items-center space-x-2 text-xs font-medium bg-github-border/50 hover:bg-github-border text-gray-200 px-3 py-2 rounded-xl transition-all border border-github-border">
+
+                <i class="fa-brands fa-github text-sm"></i>
+                <span>Mi GitHub</span>
+            </a>
+
+        </div>
+    </div>
+</header>
+
+
+<main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 overflow-y-auto custom-scroll">
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
+
+<!-- ========================================================= -->
+<!-- COLUMNA IZQUIERDA -->
+<!-- ========================================================= -->
+
+<div class="lg:col-span-5 space-y-4">
+
+<div class="bg-github-card/90 border border-github-border/80 rounded-2xl p-4 sm:p-5 shadow-xl space-y-4 backdrop-blur-md">
+
+<div class="flex items-center justify-between border-b border-github-border/80 pb-3">
+
+<h2 class="font-bold text-white text-xs sm:text-sm flex items-center gap-2">
+<i class="fa-solid fa-sliders text-emerald-400"></i>
+Ajustes de la Tarjeta
+</h2>
+
+<span class="text-[10px] text-github-muted font-mono">
+Personalizable
+</span>
+
+</div>
+
+
+<!-- Usuario -->
+
+<div>
+
+<label for="user"
+       class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center justify-between">
+
+<span>
+Usuario GitHub
+<span class="text-emerald-400">*</span>
+</span>
+
+</label>
+
+<div class="relative">
+
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+<i class="fa-solid fa-at text-xs"></i>
+</span>
+
+<input
+    type="text"
+    id="user"
+    name="user"
+    required
+    class="param w-full pl-8 pr-3 py-2 bg-github-bg border border-github-border rounded-xl text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/80 transition-all"
+    placeholder="Escribe tu usuario de GitHub aquí..."
+    value="xyvenqorix">
+
+</div>
+</div>
+
+
+<!-- Tema / frecuencia -->
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+<div>
+
+<label for="theme"
+       class="block text-xs font-semibold text-gray-300 mb-1">
+Tema de Color
+</label>
+
+<select id="theme"
+        name="theme"
+        class="param w-full px-2.5 py-2 bg-github-bg border border-github-border rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/80 cursor-pointer">
+
+<option value="default"
+data-background="141321"
+data-border="4c416e"
+data-stroke="e4e2e2"
+data-ring="fe428e"
+data-fire="fe428e"
+data-curr-streak-num="fe428e"
+data-side-nums="a8a6b1"
+data-curr-streak-label="fe428e"
+data-side-labels="a8a6b1"
+data-dates="a8a6b1">
+Default (Purple)
+</option>
+
+<option value="dark"
+selected
+data-background="0d1117"
+data-border="30363d"
+data-stroke="c9d1d9"
+data-ring="58a6ff"
+data-fire="bc8cff"
+data-curr-streak-num="58a6ff"
+data-side-nums="8b949e"
+data-curr-streak-label="58a6ff"
+data-side-labels="8b949e"
+data-dates="8b949e">
+GitHub Dark
+</option>
+
+<option value="radical"
+data-background="141321"
+data-border="fe428e"
+data-stroke="a9fef7"
+data-ring="fe428e"
+data-fire="fe428e"
+data-curr-streak-num="fe428e"
+data-side-nums="a8a6b1"
+data-curr-streak-label="fe428e"
+data-side-labels="a8a6b1"
+data-dates="a8a6b1">
+Radical Neon
+</option>
+
+<option value="tokyonight"
+data-background="1a1b26"
+data-border="70a5fd"
+data-stroke="bf95f7"
+data-ring="70a5fd"
+data-fire="bf95f7"
+data-curr-streak-num="70a5fd"
+data-side-nums="38bdae"
+data-curr-streak-label="70a5fd"
+data-side-labels="38bdae"
+data-dates="38bdae">
+Tokyo Night
+</option>
+
+<option value="merko"
+data-background="0a0f0d"
+data-border="00fb89"
+data-stroke="68b587"
+data-ring="00fb89"
+data-fire="00fb89"
+data-curr-streak-num="00fb89"
+data-side-nums="abd2bf"
+data-curr-streak-label="00fb89"
+data-side-labels="abd2bf"
+data-dates="abd2bf">
+Merko Cyber
+</option>
+
+<option value="gruvbox"
+data-background="282828"
+data-border="fe8019"
+data-stroke="ebdbb2"
+data-ring="fe8019"
+data-fire="fe8019"
+data-curr-streak-num="fe8019"
+data-side-nums="a89984"
+data-curr-streak-label="fe8019"
+data-side-labels="a89984"
+data-dates="a89984">
+Gruvbox Dark
+</option>
+
+<option value="onedark"
+data-background="282c34"
+data-border="e06c75"
+data-stroke="abb2bf"
+data-ring="e06c75"
+data-fire="e06c75"
+data-curr-streak-num="e06c75"
+data-side-nums="98c379"
+data-curr-streak-label="e06c75"
+data-side-labels="98c379"
+data-dates="98c379">
+One Dark
+</option>
+
+<option value="synthwave"
+data-background="2b213a"
+data-border="e2e9ec"
+data-stroke="e2e9ec"
+data-ring="ef3550"
+data-fire="ef3550"
+data-curr-streak-num="ef3550"
+data-side-nums="f1184c"
+data-curr-streak-label="ef3550"
+data-side-labels="f1184c"
+data-dates="f1184c">
+Synthwave
+</option>
+
+<option value="highcontrast"
+data-background="000000"
+data-border="ffffff"
+data-stroke="ffffff"
+data-ring="e7f216"
+data-fire="e7f216"
+data-curr-streak-num="e7f216"
+data-side-nums="ffffff"
+data-curr-streak-label="e7f216"
+data-side-labels="ffffff"
+data-dates="ffffff">
+High Contrast
+</option>
+
+</select>
+</div>
+
+
+<div>
+
+<label for="mode"
+       class="block text-xs font-semibold text-gray-300 mb-1">
+Frecuencia
+</label>
+
+<select id="mode"
+        name="mode"
+        class="param w-full px-2.5 py-2 bg-github-bg border border-github-border rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/80 cursor-pointer">
+
+<option value="daily" selected>
+Diario (Daily)
+</option>
+
+<option value="weekly">
+Semanal (Weekly)
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<!-- Bordes / formato -->
+
+<div class="grid grid-cols-2 gap-3">
+
+<div>
+
+<label for="border_radius"
+       class="block text-xs font-semibold text-gray-300 mb-1">
+Bordes (px)
+</label>
+
+<input
+    type="number"
+    step="0.5"
+    id="border_radius"
+    name="border_radius"
+    value="8"
+    class="param w-full px-2.5 py-2 bg-github-bg border border-github-border rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/80">
+
+</div>
+
+
+<div>
+
+<label for="type"
+       class="block text-xs font-semibold text-gray-300 mb-1">
+Formato Salida
+</label>
+
+<select id="type"
+        name="type"
+        class="param w-full px-2.5 py-2 bg-github-bg border border-github-border rounded-xl text-xs text-white">
+
+<option value="svg" selected>
+Imagen SVG
+</option>
+
+<option value="json">
+Datos JSON API
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<!-- Locale -->
+
+<div class="grid grid-cols-2 gap-3">
+
+<div>
+
+<label for="locale"
+       class="block text-xs font-semibold text-gray-300 mb-1">
+Idioma (Locale)
+</label>
+
+<input
+    type="text"
+    id="locale"
+    name="locale"
+    value="es"
+    placeholder="es, en, fr..."
+    class="param w-full px-2.5 py-2 bg-github-bg border border-github-border rounded-xl text-xs text-white">
+
+</div>
+
+
+<div>
+
+<label for="short_numbers"
+       class="block text-xs font-semibold text-gray-300 mb-1">
+Abreviar Números
+</label>
+
+<select
+    id="short_numbers"
+    name="short_numbers"
+    class="param w-full px-2.5 py-2 bg-github-bg border border-github-border rounded-xl text-xs text-white">
+
+<option value="false" selected>
+No (1,482)
+</option>
+
+<option value="true">
+Sí (1.5k)
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<!-- Métricas -->
+
+<div class="border-t border-github-border/80 pt-3">
+
+<label class="block text-xs font-semibold text-gray-300 mb-2">
+Métricas Visibles
+</label>
+
+<input
+    type="hidden"
+    id="sections"
+    name="sections"
+    class="param"
+    value="total,current,longest">
+
+<div class="sections grid grid-cols-3 gap-2">
+
+<label class="flex items-center justify-center space-x-1.5 text-xs bg-github-bg border border-github-border/80 p-2 rounded-xl cursor-pointer hover:border-emerald-500/50 transition-all select-none">
+
+<input type="checkbox"
+       value="total"
+       checked
+       class="rounded border-github-border text-emerald-500 focus:ring-0 bg-github-bg">
+
+<span class="text-gray-200">
+Total
+</span>
+
+</label>
+
+
+<label class="flex items-center justify-center space-x-1.5 text-xs bg-github-bg border border-github-border/80 p-2 rounded-xl cursor-pointer hover:border-emerald-500/50 transition-all select-none">
+
+<input type="checkbox"
+       value="current"
+       checked
+       class="rounded border-github-border text-emerald-500 focus:ring-0 bg-github-bg">
+
+<span class="text-gray-200">
+Actual
+</span>
+
+</label>
+
+
+<label class="flex items-center justify-center space-x-1.5 text-xs bg-github-bg border border-github-border/80 p-2 rounded-xl cursor-pointer hover:border-emerald-500/50 transition-all select-none">
+
+<input type="checkbox"
+       value="longest"
+       checked
+       class="rounded border-github-border text-emerald-500 focus:ring-0 bg-github-bg">
+
+<span class="text-gray-200">
+Máxima
+</span>
+
+</label>
+
+</div>
+</div>
+
+
+<!-- Excluir días -->
+
+<div class="border-t border-github-border/80 pt-3">
+
+<label class="block text-xs font-semibold text-gray-300 mb-2">
+Excluir Días
+</label>
+
+<input
+    type="hidden"
+    id="exclude-days"
+    name="exclude_days"
+    class="param"
+    value="">
+
+<div class="weekdays flex flex-wrap gap-1">
+
+<label class="flex items-center space-x-1 text-xs bg-github-bg border border-github-border/80 px-2 py-1 rounded-lg cursor-pointer hover:border-gray-500">
+
+<input type="checkbox" value="Sun">
+<span>Dom</span>
+
+</label>
+
+<label class="flex items-center space-x-1 text-xs bg-github-bg border border-github-border/80 px-2 py-1 rounded-lg cursor-pointer hover:border-gray-500">
+
+<input type="checkbox" value="Mon">
+<span>Lun</span>
+
+</label>
+
+<label class="flex items-center space-x-1 text-xs bg-github-bg border border-github-border/80 px-2 py-1 rounded-lg cursor-pointer hover:border-gray-500">
+
+<input type="checkbox" value="Tue">
+<span>Mar</span>
+
+</label>
+
+<label class="flex items-center space-x-1 text-xs bg-github-bg border border-github-border/80 px-2 py-1 rounded-lg cursor-pointer hover:border-gray-500">
+
+<input type="checkbox" value="Wed">
+<span>Mié</span>
+
+</label>
+
+<label class="flex items-center space-x-1 text-xs bg-github-bg border border-github-border/80 px-2 py-1 rounded-lg cursor-pointer hover:border-gray-500">
+
+<input type="checkbox" value="Thu">
+<span>Jue</span>
+
+</label>
+
+<label class="flex items-center space-x-1 text-xs bg-github-bg border border-github-border/80 px-2 py-1 rounded-lg cursor-pointer hover:border-gray-500">
+
+<input type="checkbox" value="Fri">
+<span>Vie</span>
+
+</label>
+
+<label class="flex items-center space-x-1 text-xs bg-github-bg border border-github-border/80 px-2 py-1 rounded-lg cursor-pointer hover:border-gray-500">
+
+<input type="checkbox" value="Sat">
+<span>Sáb</span>
+
+</label>
+
+</div>
+</div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- PERSONALIZACIÓN -->
+<!-- ========================================================= -->
+
+<details class="advanced bg-github-card/90 border border-github-border/80 rounded-2xl p-4 shadow-xl group">
+
+<summary class="font-bold text-white text-xs sm:text-sm flex items-center justify-between cursor-pointer list-none select-none">
+
+<span class="flex items-center gap-2">
+
+<i class="fa-solid fa-palette text-amber-400"></i>
+
+Personalizar Colores Avanzados
+
+</span>
+
+<i class="fa-solid fa-chevron-down text-xs text-gray-400 group-open:rotate-180 transition-transform"></i>
+
+</summary>
+
+
+<div class="mt-3 pt-3 border-t border-github-border/80 space-y-3">
+
+
+<div class="flex items-center space-x-4 bg-github-bg p-2.5 rounded-xl border border-github-border/80">
+
+<span class="text-xs text-gray-400 font-medium">
+Fondo:
+</span>
+
+<label class="inline-flex items-center space-x-1.5 text-xs text-gray-200 cursor-pointer">
+
+<input
+    type="radio"
+    id="background-type-solid"
+    name="background-type"
+    value="solid"
+    checked>
+
+<span>Sólido</span>
+
+</label>
+
+
+<label class="inline-flex items-center space-x-1.5 text-xs text-gray-200 cursor-pointer">
+
+<input
+    type="radio"
+    id="background-type-gradient"
+    name="background-type"
+    value="gradient">
+
+<span>Degradado</span>
+
+</label>
+
+</div>
+
+
+<div class="flex gap-2">
+
+<select
+    id="properties"
+    class="flex-1 px-2.5 py-1.5 bg-github-bg border border-github-border rounded-xl text-xs text-white">
+
+<option value="background">background</option>
+<option value="border">border</option>
+<option value="stroke">stroke</option>
+<option value="ring">ring</option>
+<option value="fire">fire</option>
+<option value="currStreakNum">currStreakNum</option>
+<option value="sideNums">sideNums</option>
+<option value="currStreakLabel">currStreakLabel</option>
+<option value="sideLabels">sideLabels</option>
+<option value="dates">dates</option>
+
+</select>
+
+
+<button
+    type="button"
+    onclick="preview.addProperty()"
+    class="px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-xs font-semibold rounded-xl transition-all flex items-center gap-1">
+
+<i class="fa-solid fa-plus text-xs"></i>
+
+Añadir
+
+</button>
+
+</div>
+
+
+<div class="color-properties space-y-2"></div>
+
+
+<div class="flex items-center justify-between border-t border-github-border/80 pt-3">
+
+<button
+    type="button"
+    id="clear-button"
+    onclick="preview.removeAllProperties()"
+    disabled
+    class="px-2.5 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 text-xs rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+
+Limpiar todo
+
+</button>
+
+
+<button
+    type="button"
+    onclick="preview.exportPhp()"
+    class="px-2.5 py-1 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/20 text-xs rounded-xl transition-all">
+
+Exportar PHP Tema
+
+</button>
+
+</div>
+
+
+<textarea
+    id="exported-php"
+    hidden
+    readonly
+    class="w-full h-24 p-2.5 bg-github-bg border border-github-border rounded-xl text-xs font-mono text-emerald-400 focus:outline-none">
+</textarea>
+
+</div>
+
+</details>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- COLUMNA DERECHA -->
+<!-- ========================================================= -->
+
+<div class="lg:col-span-7 space-y-4">
+
+
+<div class="bg-github-card/90 border border-github-border/80 rounded-2xl p-4 sm:p-5 shadow-xl space-y-3 backdrop-blur-md">
+
+<div class="flex items-center justify-between border-b border-github-border/80 pb-2.5 flex-wrap gap-2">
+
+<h2 class="font-bold text-white text-xs sm:text-sm flex items-center gap-2">
+
+<i class="fa-solid fa-desktop text-emerald-400"></i>
+
+Vista Previa en Tiempo Real
+
+</h2>
+
+
+<span
+    id="live-status-badge"
+    class="inline-flex items-center gap-1.5 text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+
+Datos reales de GitHub
+
+</span>
+
+</div>
+
+
+<div class="output relative min-h-[210px] flex flex-col items-center justify-center p-3 sm:p-5 bg-github-bg/90 rounded-2xl border border-github-border/80 shadow-inner overflow-hidden">
+
+
+<div
+    id="card-loader"
+    class="hidden absolute inset-0 bg-github-bg/85 backdrop-blur-xs flex flex-col items-center justify-center gap-2 z-10">
+
+<i class="fa-solid fa-circle-notch fa-spin text-emerald-400 text-2xl"></i>
+
+<span class="text-xs text-gray-300 font-medium">
+Obteniendo rachas reales...
+</span>
+
+</div>
+
+
+<div
+    id="empty-ghost-state"
+    class="flex flex-col items-center justify-center py-6 text-center space-y-2">
+
+<div class="w-12 h-12 rounded-2xl bg-github-border/30 flex items-center justify-center text-gray-500 mb-1">
+
+<i class="fa-solid fa-ghost text-xl text-emerald-400/60"></i>
+
+</div>
+
+<p class="text-xs font-medium text-gray-300">
+Escribe tu nombre de usuario arriba
+</p>
+
+<p class="text-[11px] text-github-muted max-w-xs">
+La tarjeta gráfica en vivo con tus contribuciones y racha actual se cargará automáticamente.
+</p>
+
+</div>
+
+
+<img
+    id="streak-card-img"
+    src=""
+    alt="GitHub Streak Preview"
+    class="hidden max-w-full h-auto drop-shadow-md rounded-lg transition-all duration-300">
+
+
+<div id="card-error-msg"
+     class="hidden text-center p-4">
+
+<i class="fa-solid fa-circle-exclamation text-amber-400 text-xl mb-1"></i>
+
+<p class="text-xs text-gray-300 font-medium">
+No se pudo cargar la racha para este usuario.
+</p>
+
+<p class="text-[11px] text-github-muted">
+Verifica que el usuario exista y tenga actividad pública en GitHub.
+</p>
+
+</div>
+
+
+<div class="json hidden w-full">
+
+<pre class="bg-github-bg p-3 rounded-xl text-xs text-emerald-400 font-mono overflow-x-auto border border-github-border max-h-72 custom-scroll"></pre>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CÓDIGOS -->
+
+<div class="bg-github-card/90 border border-github-border/80 rounded-2xl p-4 sm:p-5 shadow-xl space-y-4 backdrop-blur-md">
+
+<div class="flex items-center justify-between border-b border-github-border/80 pb-2.5">
+
+<h2 class="font-bold text-white text-xs sm:text-sm flex items-center gap-2">
+
+<i class="fa-solid fa-code text-cyan-400"></i>
+
+Códigos de Integración para GitHub
+
+</h2>
+
+<span class="text-[11px] text-github-muted">
+Copiar e Insertar
+</span>
+
+</div>
+
+
+<!-- MARKDOWN -->
+
+<div class="space-y-1.5">
+
+<div class="flex items-center justify-between">
+
+<span class="text-xs font-semibold text-gray-300 flex items-center gap-1.5">
+
+<i class="fa-brands fa-markdown text-blue-400"></i>
+
+Markdown (para README.md)
+
+</span>
+
+
+<button
+    type="button"
+    onclick="clipboard.copy(this)"
+    class="copy-button copy-md px-2.5 py-1 bg-github-border/80 hover:bg-github-border text-white text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5">
+
+<i class="fa-regular fa-copy text-xs"></i>
+
+Copiar Markdown
+
+</button>
+
+</div>
+
+
+<div class="md bg-github-bg border border-github-border/80 rounded-xl p-2.5 overflow-x-auto custom-scroll">
+
+<code class="text-xs text-emerald-300 break-all select-all font-mono"></code>
+
+</div>
+
+</div>
+
+
+<!-- HTML -->
+
+<div class="space-y-1.5 border-t border-github-border/60 pt-3">
+
+<div class="flex items-center justify-between">
+
+<span class="text-xs font-semibold text-gray-300 flex items-center gap-1.5">
+
+<i class="fa-code text-amber-400"></i>
+
+Código HTML
+
+</span>
+
+
+<button
+    type="button"
+    onclick="clipboard.copy(this)"
+    class="copy-button copy-html px-2.5 py-1 bg-github-border/80 hover:bg-github-border text-white text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5">
+
+<i class="fa-regular fa-copy text-xs"></i>
+
+Copiar HTML
+
+</button>
+
+</div>
+
+
+<div class="html bg-github-bg border border-github-border/80 rounded-xl p-2.5 overflow-x-auto custom-scroll">
+
+<code class="text-xs text-gray-300 break-all select-all font-mono"></code>
+
+</div>
+
+</div>
+
+
+<!-- JSON -->
+
+<div class="json-api space-y-1.5 hidden border-t border-github-border/60 pt-3">
+
+<div class="flex items-center justify-between">
+
+<span class="text-xs font-semibold text-gray-300">
+Endpoint API JSON
+</span>
+
+
+<button
+    type="button"
+    onclick="clipboard.copy(this)"
+    class="copy-button copy-json px-2.5 py-1 bg-github-border/80 hover:bg-github-border text-white text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5">
+
+<i class="fa-regular fa-copy text-xs"></i>
+
+Copiar URL
+
+</button>
+
+</div>
+
+
+<div class="json bg-github-bg border border-github-border/80 rounded-xl p-2.5 overflow-x-auto custom-scroll">
+
+<code class="text-xs text-cyan-300 break-all select-all font-mono"></code>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+
+<footer class="flex-none border-t border-github-border/60 bg-github-card/60 py-3 backdrop-blur-md">
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-github-muted">
+
+<div class="flex items-center space-x-2">
+
+<span>
+GitHub Readme Streak Stats Generator
+</span>
+
+<span>&bull;</span>
+
+<span class="text-emerald-400">
+Diseño Optimizado
+</span>
+
+</div>
+
+
+<div class="flex items-center space-x-4">
+
+<a href="https://instagram.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="hover:text-pink-400 transition-colors flex items-center gap-1">
+
+<i class="fa-brands fa-instagram"></i>
+Instagram
+
+</a>
+
+
+<a href="https://github.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="hover:text-white transition-colors flex items-center gap-1">
+
+<i class="fa-brands fa-github"></i>
+GitHub
+
+</a>
+
+</div>
+
+</div>
+
+</footer>
+
+
+<!-- JavaScript propio -->
+<script src="includes/script.js"></script>
+
+</body>
+  </html>
